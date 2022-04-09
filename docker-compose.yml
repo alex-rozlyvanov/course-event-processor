@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  api:
+    build: .
+    ports:
+      - "7080:7080"
+      - "5008:5008"
+    environment:
+      SPRING_PROFILES_ACTIVE: "local-docker"
+      JAVA_TOOL_OPTIONS: '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5008'
+    networks:
+      - course_local
+      - course_event_processor
+
+networks:
+  course_local:
+    name: course_local
+    driver: bridge
+  course_event_processor:
+    name: course_event_processor
+    driver: bridge
